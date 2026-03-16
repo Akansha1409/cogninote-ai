@@ -14,7 +14,7 @@ app.use(cors({
 }));
 
 // Add this right below CORS to handle "pre-flight" browser checks
-app.options("*", cors());
+app.options("/*", cors());
 app.use(express.json());
 
 // Connect MongoDB
