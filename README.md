@@ -70,4 +70,4 @@
 
 ---
 
-Built by **[Your Name]** — Feel free to connect on [LinkedIn](https://linkedin.com/in/your-profile)!
+Built by **[Akansha]** — Feel free to connect on [LinkedIn](https://www.linkedin.com/in/akansha-b29a19254/)!
