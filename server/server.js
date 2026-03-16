@@ -7,13 +7,14 @@ const { processNoteWithAI } = require('./controllers/aiController');
 
 const app = express();
 app.use(cors({
-    origin: [
-        "http://localhost:5173", // For local testing
-        "cogninote-h0ff0hjj9-akanshas-projects-76a6fd7b.vercel.app" 
-    ],
-    methods: ["GET", "POST", "DELETE", "PUT"],
+    origin: "*", // Allows any frontend to connect - best for testing/portfolios
+    methods: ["GET", "POST", "DELETE", "PUT", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
 }));
+
+// Add this right below CORS to handle "pre-flight" browser checks
+app.options("*", cors());
 app.use(express.json());
 
 // Connect MongoDB
