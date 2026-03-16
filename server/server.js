@@ -7,45 +7,48 @@ const { processNoteWithAI } = require('./controllers/aiController');
 
 const app = express();
 
-// 1. FIXED CORS (Removed trailing slash and added options handler)
+// 1. Clean Middleware-based CORS
 app.use(cors({
     origin: [
         "http://localhost:5173", 
-        "https://cogninote-ai-git-main-akanshas-projects-76a6fd7b.vercel.app" // REMOVED THE "/" AT THE END
+        "https://cogninote-ai-git-main-akanshas-projects-76a6fd7b.vercel.app"
     ],
     methods: ["GET", "POST", "DELETE", "PUT", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
 }));
 
-// Handle pre-flight for Express v5+
-app.options("/*", cors());
+// 2. Direct Middleware for Pre-flight (Avoids the PathError)
+app.use((req, res, next) => {
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(200);
+    }
+    next();
+});
 
 app.use(express.json());
 
-// 2. Add a simple root route so the Render link doesn't show an error
+// Root route
 app.get("/", (req, res) => {
-    res.send("CogniNote AI Backend is Running!");
+    res.send("CogniNote AI Backend is Live!");
 });
 
-// Connect MongoDB
+// MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log("MongoDB Connected"))
     .catch(err => console.log("MongoDB Error:", err));
 
-// API Route to Create Note
+// Routes
 app.post('/api/notes', async (req, res) => {
     try {
         const { title, content } = req.body;
         const aiData = await processNoteWithAI(content);
-
         const newNote = new Note({
             title,
             content,
             summary: aiData.summary,
             tags: aiData.tags
         });
-
         await newNote.save();
         res.status(201).json(newNote);
     } catch (error) {
@@ -53,7 +56,6 @@ app.post('/api/notes', async (req, res) => {
     }
 });
 
-// API Route to Get All Notes
 app.get('/api/notes', async (req, res) => {
     try {
         const notes = await Note.find().sort({ createdAt: -1 });
@@ -63,7 +65,6 @@ app.get('/api/notes', async (req, res) => {
     }
 });
 
-// API Route to Delete Note
 app.delete('/api/notes/:id', async (req, res) => {
     try {
         await Note.findByIdAndDelete(req.params.id);
@@ -73,6 +74,5 @@ app.delete('/api/notes/:id', async (req, res) => {
     }
 });
 
-// 3. FIXED: Only ONE declaration of PORT allowed
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
