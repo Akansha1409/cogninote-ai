@@ -7,7 +7,7 @@ const { processNoteWithAI } = require('./controllers/aiController');
 
 const app = express();
 app.use(cors({
-    origin: "*", // Allows any frontend to connect - best for testing/portfolios
+    origin: "cogninote-ai-git-main-akanshas-projects-76a6fd7b.vercel.app", 
     methods: ["GET", "POST", "DELETE", "PUT", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
