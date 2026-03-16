@@ -11,7 +11,7 @@ const app = express();
 app.use(cors({
     origin: [
         "http://localhost:5173", 
-        "https://cogninote-ai.vercel.app/"
+        "https://cogninote-ai.vercel.app"
     ],
     methods: ["GET", "POST", "DELETE", "PUT", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
