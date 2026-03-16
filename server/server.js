@@ -6,7 +6,14 @@ const Note = require('./models/Note');
 const { processNoteWithAI } = require('./controllers/aiController');
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: [
+        "http://localhost:5173", // For local testing
+        "cogninote-h0ff0hjj9-akanshas-projects-76a6fd7b.vercel.app" 
+    ],
+    methods: ["GET", "POST", "DELETE", "PUT"],
+    credentials: true
+}));
 app.use(express.json());
 
 // Connect MongoDB
