@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Sparkles, Plus, Trash2, Hash, Zap } from 'lucide-react';
 
-const API_URL = "http://localhost:5000/api/notes";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api/notes";
 
 function App() {
   const [notes, setNotes] = useState([]);
