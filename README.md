@@ -6,7 +6,7 @@
 ---
 
 ## 🔗 Live Demo  
-🚀 **[View Live Application](https://your-vercel-link.vercel.app)** *(Note: This is a public demo for portfolio purposes. All notes are visible to users.)*
+🚀 **[View Live Application](cogninote-pfna0k06e-akanshas-projects-76a6fd7b.vercel.app)** *(Note: This is a public demo for portfolio purposes. All notes are visible to users.)*
 
 ---
 
